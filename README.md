@@ -21,5 +21,5 @@ There are 2 modes you should choose from:
     Что будем делать: Добавить ссылку:1/ вывод статистики:2? *1*  
     укажите ссыллку для обработки: https://github.com/kennethreitz/requests  
     Для ссылки https://github.com/kennethreitz/requests Создана короткая ссылка:`bit.ly/2IC8JXj`  
-##License
+## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/psergal/bitly/blob/master/license.md) file for details  
