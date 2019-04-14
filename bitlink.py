@@ -6,6 +6,7 @@ import os
 import json
 import logging
 import http.client as httplib
+import argparse
 
 
 def make_short_date(ldate):
@@ -138,6 +139,31 @@ def get_input(logger):
     return task, url
 
 
+def get_args(logger):
+    logger.info('START')
+    parser = argparse.ArgumentParser(description="Shortened long link using bitly.com")
+    parser.add_argument('mode', default=1, type=int, choices=[1, 2],
+                        help='1-Create a short link , 2-Output statistics')
+    parser.add_argument('-u', '--url',  help='Long url for handling, that should be shortened')
+    args = parser.parse_args()
+    if args.mode == 1:
+        logger.info(f'Пользователь выбрал :{args.mode} - добавление ссылки, спросим ссылку')
+        try:
+            logger.info(f'проверяем {args.url} на 200')
+            resp = requests.get(args.url)
+            if not resp.ok:
+                logger.error(f'Ссылка {args.url} неверна. Результат ответа{resp.text}')
+                print(f'Ссылка {args.url} неверна. Результат ответа{resp.text}')
+                sys.exit(1)
+        except requests.exceptions.RequestException as e:
+            logger.error(f'Получили Исключение на обработке введенной пользователм ссылке: {e}')
+            print(f'Ошибка проверки ссылки:{e}')
+            sys.exit(1)
+    elif args.mode == 2:
+        logger.info('Пользователь выбрал вывод статистики')
+    return args
+
+
 def main():
     log_format = "%(levelname)s %(asctime)s - %(message)s"
     httplib.HTTPConnection.debuglevel = 0  # 1 -включает
@@ -149,20 +175,20 @@ def main():
         'Connection': 'Keep-Alive',
         'Authorization': clientid
     }
-    task, url = get_input(logger)
-    if task == '1':
+    args = get_args(logger)
+    if args.mode == 1:
         try:
-            bitlink_info = check_url(logger=logger, headers=headers, url=url)
+            bitlink_info = check_url(logger=logger, headers=headers, url=args.url)
             if bitlink_info is not None:
                 logger.info(f"Пользователь ввел корооткую ссылку:{bitlink_info['title']} вместо динной")
-                print(f"Короткий битлинк {url} создан {make_short_date(bitlink_info['created_at'])}")
+                print(f"Короткий битлинк {args.url} создан {make_short_date(bitlink_info['created_at'])}")
                 print(f"Исходная ссылка: {bitlink_info['long_url']}")
                 print(f"Называется:{bitlink_info['title']}")
                 sys.exit(1)
             try:  # Длинная short_link_ok
-                link = create_bitlink(logger=logger, headers=headers, long_url=url)
-                logger.info(f'Результат создания динной ссылки:{url}, битлинк:{link}')
-                print(f'Для ссылки {url} Создана короткая ссылка:{link}')
+                link = create_bitlink(logger=logger, headers=headers, long_url=args.url)
+                logger.info(f'Результат создания динной ссылки:{args.url}, битлинк:{link}')
+                print(f'Для ссылки {args.url} Создана короткая ссылка:{link}')
                 sys.exit(0)
             except requests.exceptions.RequestException as e:
                 logger.error(f'Ошибка при создании ссылки:{e} функция create_bitlink()')
@@ -172,7 +198,7 @@ def main():
             logger.error(f'Ошибка в функции check_url:{e}')
             print(f'Ошибка в функции check_url:{e}')
             sys.exit(1)
-    elif task == '2':
+    elif args.mode == 2:
         try:
             id_to_bitlink = get_bitlinks(logger, headers)
             logger.info(f'Все битлинки:{id_to_bitlink.values()}')

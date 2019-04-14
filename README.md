@@ -12,10 +12,10 @@ After that program derives it by `os.getenv` function.
 The code executes by __Python 3.7__   
 The mostly used library `requests` should be installed.
 ## Usage
-You can launch from command line typing `python bitlink.py`  
+You can get description using command line typing `python bitlink.py -h`  
 There are 2 modes you should choose from:
-1. Creating a short link from the long one
-2. Output accumulated statistics 
+1. Creating a short link from the long one `python bitlink.py 1 -u <URL>`
+2. Output accumulated statistics  `python bitlink.py 2`
 ## Example
     python bitlink.py  
     Что будем делать: Добавить ссылку:1/ вывод статистики:2? *1*  
