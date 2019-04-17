@@ -1,6 +1,6 @@
 # Bitlink management
 ***
-##Why
+## Why
 THis is a training project for better understanding how to work with API services.
 ##Prerequisites  
 The API-site for the testing is [bitly.com](https://bitly.com).  
