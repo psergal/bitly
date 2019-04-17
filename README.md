@@ -16,14 +16,21 @@ Then use __pip__ for installing depended libraries:
 ## Usage
 You can get description using command line typing `python bitlink.py -h`  
 There are 2 modes you should choose from:
-1. Creating a short link from the long one `python bitlink.py 1 -u <URL>`
-2. Output accumulated statistics  `python bitlink.py 2`
+1. Creating a short link from the long one `python bitlink.py create -u <URL>`
+2. Output accumulated statistics  `python bitlink.py list`
 
 ## Example
-    python bitlink.py  
-    Что будем делать: Добавить ссылку:1/ вывод статистики:2? *1*  
-    укажите ссыллку для обработки: https://github.com/kennethreitz/requests  
-    Для ссылки https://github.com/kennethreitz/requests Создана короткая ссылка:`bit.ly/2IC8JXj`  
+    python bitlink.py list  
+   {
+     "bit.ly/2EgbuuE": {
+       "bitlink": "http://bit.ly/2EgbuuE",
+       "stat_per_day": [
+         {
+           "2019.02.17": 1
+         }
+       ]
+     }
+    }
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/psergal/bitly/blob/master/license.md) file for details  

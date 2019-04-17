@@ -176,7 +176,7 @@ def main():
         'Authorization': clientid
     }
     args = get_args(logger)
-    if args.mode == 1:
+    if args.mode == 'create':
         try:
             bitlink_info = check_url(logger=logger, headers=headers, url=args.url)
             if bitlink_info is not None:
@@ -198,7 +198,7 @@ def main():
             logger.error(f'Ошибка в функции check_url:{e}')
             print(f'Ошибка в функции check_url:{e}')
             sys.exit(1)
-    elif args.mode == 2:
+    elif args.mode == 'list':
         try:
             id_to_bitlink = get_bitlinks(logger, headers)
             logger.info(f'Все битлинки:{id_to_bitlink.values()}')
