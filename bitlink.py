@@ -142,11 +142,11 @@ def get_input(logger):
 def get_args(logger):
     logger.info('START')
     parser = argparse.ArgumentParser(description="Shortened long link using bitly.com")
-    parser.add_argument('mode', default=1, type=int, choices=[1, 2],
-                        help='1-Create a short link , 2-Output statistics')
+    parser.add_argument('mode', default='list',  choices=['create', 'list'],
+                        help='create - Create a short link , list - Output statistics')
     parser.add_argument('-u', '--url',  help='Long url for handling, that should be shortened')
     args = parser.parse_args()
-    if args.mode == 1:
+    if args.mode == 'create':
         logger.info(f'Пользователь выбрал :{args.mode} - добавление ссылки, спросим ссылку')
         try:
             logger.info(f'проверяем {args.url} на 200')
@@ -159,7 +159,7 @@ def get_args(logger):
             logger.error(f'Получили Исключение на обработке введенной пользователм ссылке: {e}')
             print(f'Ошибка проверки ссылки:{e}')
             sys.exit(1)
-    elif args.mode == 2:
+    elif args.mode == 'list':
         logger.info('Пользователь выбрал вывод статистики')
     return args
 
