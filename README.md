@@ -21,16 +21,7 @@ There are 2 modes you should choose from:
 
 ## Example
     python bitlink.py list  
-   {
-     "bit.ly/2EgbuuE": {
-       "bitlink": "http://bit.ly/2EgbuuE",
-       "stat_per_day": [
-         {
-           "2019.02.17": 1
-         }
-       ]
-     }
-    }
+    {"bit.ly/2EgbuuE": {"bitlink": "http://bit.ly/2EgbuuE","stat_per_day": [{"2019.02.17": 1}]}}
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/psergal/bitly/blob/master/license.md) file for details  
